@@ -24,7 +24,7 @@ RCT_EXPORT_METHOD(initialize)
     RCTLogInfo(@"Initialize is deprecated in v2");
 }
 
-RCT_EXPORT_METHOD(call:(NSString *)urlString userInfo:(NSDictionary *)userInfo)
+RCT_EXPORT_METHOD(call:(NSString *)urlString subject:(NSString *)subject userInfo:(NSDictionary *)userInfo)
 {
     RCTLogInfo(@"Load URL %@", urlString);
     JitsiMeetUserInfo * _userInfo = [[JitsiMeetUserInfo alloc] init];
@@ -41,15 +41,23 @@ RCT_EXPORT_METHOD(call:(NSString *)urlString userInfo:(NSDictionary *)userInfo)
       }
     }
     dispatch_sync(dispatch_get_main_queue(), ^{
-        JitsiMeetConferenceOptions *options = [JitsiMeetConferenceOptions fromBuilder:^(JitsiMeetConferenceOptionsBuilder *builder) {        
+        JitsiMeetConferenceOptions *options = [JitsiMeetConferenceOptions fromBuilder:^(JitsiMeetConferenceOptionsBuilder *builder) {
             builder.room = urlString;
+            builder.subject = subject;
             builder.userInfo = _userInfo;
+            builder.welcomePageEnabled = false;
+            [builder setFeatureFlag:@"chat.enabled" withBoolean: NO];
+            [builder setFeatureFlag:@"close-captions.enabled" withBoolean: NO];
+            [builder setFeatureFlag:@"invite.enabled" withBoolean: NO];
+            [builder setFeatureFlag:@"calendar.enabled" withBoolean: NO];
+            [builder setFeatureFlag:@"ios.recording.enabled" withBoolean: NO];
+            [builder setFeatureFlag:@"welcomepage.enabled" withBoolean: NO];
         }];
         [jitsiMeetView join:options];
     });
 }
 
-RCT_EXPORT_METHOD(audioCall:(NSString *)urlString userInfo:(NSDictionary *)userInfo)
+RCT_EXPORT_METHOD(audioCall:(NSString *)urlString subject:(NSString *)subject userInfo:(NSDictionary *)userInfo)
 {
     RCTLogInfo(@"Load Audio only URL %@", urlString);
     JitsiMeetUserInfo * _userInfo = [[JitsiMeetUserInfo alloc] init];
@@ -66,10 +74,18 @@ RCT_EXPORT_METHOD(audioCall:(NSString *)urlString userInfo:(NSDictionary *)userI
       }
     }
     dispatch_sync(dispatch_get_main_queue(), ^{
-        JitsiMeetConferenceOptions *options = [JitsiMeetConferenceOptions fromBuilder:^(JitsiMeetConferenceOptionsBuilder *builder) {        
+        JitsiMeetConferenceOptions *options = [JitsiMeetConferenceOptions fromBuilder:^(JitsiMeetConferenceOptionsBuilder *builder) {
             builder.room = urlString;
+            builder.subject = subject;
             builder.userInfo = _userInfo;
             builder.audioOnly = YES;
+            builder.welcomePageEnabled = false;
+            [builder setFeatureFlag:@"chat.enabled" withBoolean: NO];
+            [builder setFeatureFlag:@"close-captions.enabled" withBoolean: NO];
+            [builder setFeatureFlag:@"invite.enabled" withBoolean: NO];
+            [builder setFeatureFlag:@"calendar.enabled" withBoolean: NO];
+            [builder setFeatureFlag:@"ios.recording.enabled" withBoolean: NO];
+            [builder setFeatureFlag:@"welcomepage.enabled" withBoolean: NO];
         }];
         [jitsiMeetView join:options];
     });
