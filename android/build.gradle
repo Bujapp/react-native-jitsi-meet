@@ -37,7 +37,7 @@ android {
 
 repositories {
   maven {
-      url "https://github.com/jitsi/jitsi-maven-repository/raw/master/releases"
+      url "$rootDir/../node_modules/react-native-jitsi-meet/jitsi-sdk"
   }
   google()
   mavenCentral()
@@ -45,7 +45,7 @@ repositories {
 }
 
 dependencies {
-    implementation ('org.jitsi.react:jitsi-meet-sdk:2.4.0') {
+    implementation ('org.jitsi.react:jitsi-meet-sdk:2.+') {
       transitive = true
     }
 }
