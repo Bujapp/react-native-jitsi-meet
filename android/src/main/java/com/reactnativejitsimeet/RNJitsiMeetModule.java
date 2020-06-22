@@ -38,24 +38,29 @@ public class RNJitsiMeetModule extends ReactContextBaseJavaModule {
             public void run() {
                 if (mJitsiMeetViewReference.getJitsiMeetView() != null) {
                     RNJitsiMeetUserInfo _userInfo = new RNJitsiMeetUserInfo();
+                    String _subject = " ";
                     if (userInfo != null) {
-                        if (userInfo.hasKey("displayName")) {
-                            _userInfo.setDisplayName(userInfo.getString("displayName"));
-                          }
-                          if (userInfo.hasKey("email")) {
-                            _userInfo.setEmail(userInfo.getString("email"));
-                          }
-                          if (userInfo.hasKey("avatar")) {
-                            String avatarURL = userInfo.getString("avatar");
-                            try {
-                                _userInfo.setAvatar(new URL(avatarURL));
-                            } catch (MalformedURLException e) {
-                            }
-                          }
+                      if (userInfo.hasKey("displayName")) {
+                        _userInfo.setDisplayName(userInfo.getString("displayName"));
+                      }
+                      if (userInfo.hasKey("email")) {
+                        _userInfo.setEmail(userInfo.getString("email"));
+                      }
+                      if (userInfo.hasKey("avatar")) {
+                        String avatarURL = userInfo.getString("avatar");
+                        try {
+                          _userInfo.setAvatar(new URL(avatarURL));
+                        } catch (MalformedURLException e) {
+                        }
+                      }
+                      if (userInfo.hasKey("subject")) {
+                        _subject = userInfo.getString("subject");
+                      }
                     }
                     RNJitsiMeetConferenceOptions options = new RNJitsiMeetConferenceOptions.Builder()
                             .setRoom(url)
                             .setAudioOnly(false)
+                            .setSubject(_subject)
                             .setUserInfo(_userInfo)
                             .setWelcomePageEnabled(false)
                             .setFeatureFlag("calendar.enabled", false)
@@ -78,24 +83,29 @@ public class RNJitsiMeetModule extends ReactContextBaseJavaModule {
             public void run() {
                 if (mJitsiMeetViewReference.getJitsiMeetView() != null) {
                     RNJitsiMeetUserInfo _userInfo = new RNJitsiMeetUserInfo();
+                    String _subject = " ";
                     if (userInfo != null) {
-                        if (userInfo.hasKey("displayName")) {
-                            _userInfo.setDisplayName(userInfo.getString("displayName"));
-                          }
-                          if (userInfo.hasKey("email")) {
-                            _userInfo.setEmail(userInfo.getString("email"));
-                          }
-                          if (userInfo.hasKey("avatar")) {
-                            String avatarURL = userInfo.getString("avatar");
-                            try {
-                                _userInfo.setAvatar(new URL(avatarURL));
-                            } catch (MalformedURLException e) {
-                            }
-                          }
+                      if (userInfo.hasKey("displayName")) {
+                        _userInfo.setDisplayName(userInfo.getString("displayName"));
+                      }
+                      if (userInfo.hasKey("email")) {
+                        _userInfo.setEmail(userInfo.getString("email"));
+                      }
+                      if (userInfo.hasKey("avatar")) {
+                        String avatarURL = userInfo.getString("avatar");
+                        try {
+                          _userInfo.setAvatar(new URL(avatarURL));
+                        } catch (MalformedURLException e) {
+                        }
+                      }
+                      if (userInfo.hasKey("subject")) {
+                        _subject = userInfo.getString("subject");
+                      }
                     }
                     RNJitsiMeetConferenceOptions options = new RNJitsiMeetConferenceOptions.Builder()
                             .setRoom(url)
                             .setAudioOnly(true)
+                            .setSubject(_subject)
                             .setUserInfo(_userInfo)
                             .setWelcomePageEnabled(false)
                             .setFeatureFlag("calendar.enabled", false)
